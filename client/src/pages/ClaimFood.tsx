@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Clock, Check, Navigation, QrCode } from 'lucide-react';
+import { ArrowLeft, MapPin, Check, Navigation, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
@@ -22,6 +22,7 @@ export default function ClaimFood() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [status, setStatus] = useState<ClaimStatus>('claimed');
+  const [timestamp] = useState(() => Date.now());
 
   const listing = mockListings.find((l) => l.id === id);
   const pickupCode = `FD-2024-${id?.padStart(3, '0')}`;
@@ -189,7 +190,7 @@ export default function ClaimFood() {
                   value={JSON.stringify({
                     code: pickupCode,
                     listingId: listing.id,
-                    timestamp: Date.now(),
+                    timestamp: timestamp,
                   })}
                   size={200}
                   level="H"

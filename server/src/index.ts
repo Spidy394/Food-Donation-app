@@ -1,7 +1,12 @@
-import app from './app.ts';
+import app from "./app";
+import connectDB from "./config/db";
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server is live at port: ${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("MongoDB connnected", error);
+  });

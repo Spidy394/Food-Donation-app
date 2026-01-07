@@ -25,7 +25,7 @@ export default function Index() {
     <Layout>
       {/* Hero Section for Donor Mode */}
       {mode === 'donor' && (
-        <div className="mb-8 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 p-6 border border-border">
+        <div className="mb-8 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 p-6 border border-border">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-bold text-foreground mb-2">

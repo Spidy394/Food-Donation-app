@@ -1,19 +1,24 @@
-import { Link } from 'react-router-dom';
-import { Clock, MapPin, Star, Utensils, Leaf } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FoodListing } from '@/data/mockData';
-import { formatDistanceToNow } from 'date-fns';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Clock, MapPin, Star, Utensils, Leaf } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { FoodListing } from "@/data/mockData";
+import { formatDistanceToNow } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface FoodCardProps {
   listing: FoodListing;
 }
 
 export function FoodCard({ listing }: FoodCardProps) {
-  const timeRemaining = formatDistanceToNow(listing.expiresAt, { addSuffix: true });
-  const isExpiringSoon = listing.expiresAt.getTime() - Date.now() < 6 * 60 * 60 * 1000;
+  const timeRemaining = formatDistanceToNow(listing.expiresAt, {
+    addSuffix: true,
+  });
+  const [isExpiringSoon] = useState(() => {
+    return listing.expiresAt.getTime() - Date.now() < 6 * 60 * 60 * 1000;
+  });
 
   return (
     <Link to={`/food/${listing.id}`}>
@@ -25,11 +30,11 @@ export function FoodCard({ listing }: FoodCardProps) {
             className="w-full h-48 object-cover"
           />
           <div className="absolute top-3 left-3 flex gap-2">
-            <Badge 
-              variant={listing.category === 'cooked' ? 'default' : 'secondary'}
+            <Badge
+              variant={listing.category === "cooked" ? "default" : "secondary"}
               className="gap-1"
             >
-              {listing.category === 'cooked' ? (
+              {listing.category === "cooked" ? (
                 <Utensils className="h-3 w-3" />
               ) : (
                 <Leaf className="h-3 w-3" />
@@ -37,11 +42,9 @@ export function FoodCard({ listing }: FoodCardProps) {
               {listing.category}
             </Badge>
           </div>
-          <div className={cn(
-            "absolute top-3 right-3",
-          )}>
-            <Badge 
-              variant={isExpiringSoon ? 'destructive' : 'outline'}
+          <div className={cn("absolute top-3 right-3")}>
+            <Badge
+              variant={isExpiringSoon ? "destructive" : "outline"}
               className="gap-1 bg-background/90 backdrop-blur-sm"
             >
               <Clock className="h-3 w-3" />
@@ -61,7 +64,10 @@ export function FoodCard({ listing }: FoodCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage src={listing.donor.avatar} alt={listing.donor.name} />
+                <AvatarImage
+                  src={listing.donor.avatar}
+                  alt={listing.donor.name}
+                />
                 <AvatarFallback>{listing.donor.name.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">

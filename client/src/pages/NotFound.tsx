@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { useAppMode } from '@/hooks/useAppMode';
 import { mockListings, mockClaims } from '@/data/mockData';
 import { formatDistanceToNow } from 'date-fns';
-import { cn } from '@/lib/utils';
 
 const statusConfig = {
   available: { label: 'Available', icon: Clock, variant: 'outline' as const },

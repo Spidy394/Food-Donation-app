@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, Star, Utensils, Leaf, Share2, Flag, MessageCircle } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
@@ -17,6 +17,9 @@ export default function FoodDetail() {
 
   const listing = mockListings.find((l) => l.id === id);
 
+  const timeRemaining = listing ? formatDistanceToNow(listing.expiresAt, { addSuffix: true }) : '';
+  const isExpiringSoon = useMemo(() => listing ? listing.expiresAt.getTime() - Date.now() < 6 * 60 * 60 * 1000 : false, [listing?.expiresAt]);
+
   if (!listing) {
     return (
       <Layout>
@@ -29,9 +32,6 @@ export default function FoodDetail() {
       </Layout>
     );
   }
-
-  const timeRemaining = formatDistanceToNow(listing.expiresAt, { addSuffix: true });
-  const isExpiringSoon = listing.expiresAt.getTime() - Date.now() < 6 * 60 * 60 * 1000;
 
   const handleClaim = () => {
     setIsClaimDialogOpen(false);

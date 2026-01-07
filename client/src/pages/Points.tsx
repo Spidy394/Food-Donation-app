@@ -30,7 +30,7 @@ export default function Points() {
   return (
     <Layout>
       {/* Hero Card */}
-      <Card className="border-2 border-primary bg-gradient-to-br from-primary/10 to-secondary/10 mb-6">
+      <Card className="border-2 border-primary bg-linear-to-br from-primary/10 to-secondary/10 mb-6">
         <CardContent className="p-6 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground mb-4">
             <Trophy className="h-8 w-8" />
